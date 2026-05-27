@@ -26,6 +26,32 @@ function Dashboard() {
     setLoans(data);
   };
 
+  // Delete Loan
+  const deleteLoan = async (loanId) => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await fetch(
+          `http://127.0.0.1:8000/loans/${loanId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error deleting loan");
+        }
+
+        fetchLoans();
+
+      } catch (error) {
+        console.error(error);
+      }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
 
@@ -51,6 +77,7 @@ function Dashboard() {
             key={loan.id}
             loan={loan}
             fetchLoans={fetchLoans}
+            deleteLoan={deleteLoan}
           />
         ))}
 

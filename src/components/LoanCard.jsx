@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PaymentList from "./PaymentList";
 
-function LoanCard({ loan, fetchLoans }) {
+function LoanCard({ loan, fetchLoans, deleteLoan }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -15,8 +15,19 @@ function LoanCard({ loan, fetchLoans }) {
           </h2>
         </div>
 
-        <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-xl font-semibold">
-          ${loan.amount}
+        <div className="flex items-center gap-3">
+
+          <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-xl font-semibold">
+            ${loan.amount}
+          </div>
+
+          <button
+            onClick={() => deleteLoan(loan.id)}
+            className="text-red-500 hover:text-red-700 transition text-lg"
+          >
+            🗑
+          </button>
+
         </div>
 
       </div>
