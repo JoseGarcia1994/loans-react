@@ -32,9 +32,9 @@ function LoanCard({ loan, fetchLoans }) {
 
         <p>
           <span className="font-semibold">
-            Pagos:
+            Pago:
           </span>{" "}
-          {loan.payments.length}
+          ${loan.amount / 10}
         </p>
 
         <p>
