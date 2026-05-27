@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "../components/ui/Alert";
 
 function CreateLoan() {
   const navigate = useNavigate();
@@ -67,12 +68,8 @@ function CreateLoan() {
           Nuevo Prestamo
         </h1>
 
-        {error && (
-          <div className="mb-4 bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-xl">
-            {error}
-          </div>
-        )}
-        
+        {error && <Alert type="error" message={error} />}
+
         <form onSubmit={createLoan} className="space-y-5">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">

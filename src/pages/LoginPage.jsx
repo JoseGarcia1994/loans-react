@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "../components/ui/Alert";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -44,7 +45,6 @@ function LoginPage() {
       setTimeout(() => {
         navigate("/dashboard");
       }, 1500);
-
     } catch (err) {
       setError(err.message);
     } finally {
@@ -61,11 +61,7 @@ function LoginPage() {
           <p className="text-gray-500 mt-2">Sign in to your account</p>
         </div>
 
-        {success && (
-          <div className="mb-4 bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded-xl animate-fadeIn">
-            Login successful!
-          </div>
-        )}
+        {success && <Alert type="success" message="Login successful!" />}
 
         <form className="space-y-5" onSubmit={handleLogin}>
           {error && (

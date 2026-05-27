@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Alert from "../components/ui/Alert";
 
 function EditLoan() {
   const { id } = useParams();
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -22,14 +24,11 @@ function EditLoan() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/loans/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://127.0.0.1:8000/loans/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = await response.json();
 
@@ -38,7 +37,6 @@ function EditLoan() {
         amount: data.amount,
         date: data.date,
       });
-
     } catch (error) {
       console.error(error);
     }
@@ -54,33 +52,35 @@ function EditLoan() {
   const updateLoan = async (e) => {
     e.preventDefault();
 
+    setError("");
+
     try {
       setLoading(true);
 
       const token = localStorage.getItem("token");
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/loans/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            amount: Number(formData.amount),
-            date: formData.date,
-          }),
-        }
-      );
+      const response = await fetch(`http://127.0.0.1:8000/loans/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          amount: Number(formData.amount),
+          date: formData.date,
+        }),
+      });
 
       if (!response.ok) {
-        throw new Error("Error updating loan");
+        const errorData = await response.json();
+
+        setError(errorData.detail[0].msg);
+
+        return;
       }
 
       navigate("/dashboard");
-
     } catch (error) {
       console.error(error);
       alert("Error updating loan");
@@ -91,18 +91,14 @@ function EditLoan() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
           Editar Prestamo
         </h1>
 
-        <form
-          onSubmit={updateLoan}
-          className="space-y-5"
-        >
+        {error && <Alert type="error" message={error} />}
 
+        <form onSubmit={updateLoan} className="space-y-5">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Nombre
@@ -155,11 +151,8 @@ function EditLoan() {
           >
             {loading ? "Actualizando..." : "Actualizar Prestamo"}
           </button>
-
         </form>
-
       </div>
-
     </div>
   );
 }
