@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function CreateLoan() {
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,6 +22,8 @@ function CreateLoan() {
 
   const createLoan = async (e) => {
     e.preventDefault();
+
+    setError("");
 
     try {
       setLoading(true);
@@ -42,9 +45,10 @@ function CreateLoan() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.log(errorData);
 
-        throw new Error("Error creating loan");
+        setError(errorData.detail[0].msg);
+
+        return;
       }
 
       navigate("/dashboard");
@@ -63,6 +67,12 @@ function CreateLoan() {
           Nuevo Prestamo
         </h1>
 
+        {error && (
+          <div className="mb-4 bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-xl">
+            {error}
+          </div>
+        )}
+        
         <form onSubmit={createLoan} className="space-y-5">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
