@@ -6,6 +6,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,9 +39,11 @@ function LoginPage() {
       // save token
       localStorage.setItem("token", data.access_token);
 
-      alert("Login successful!");
+      setSuccess(true);
 
-      navigate("/dashboard");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
 
     } catch (err) {
       setError(err.message);
@@ -52,19 +55,19 @@ function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-800">
-            Tu Cartera
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800">Tu Cartera</h1>
 
-          <p className="text-gray-500 mt-2">
-            Sign in to your account
-          </p>
+          <p className="text-gray-500 mt-2">Sign in to your account</p>
         </div>
 
-        <form className="space-y-5" onSubmit={handleLogin}>
+        {success && (
+          <div className="mb-4 bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded-xl animate-fadeIn">
+            Login successful!
+          </div>
+        )}
 
+        <form className="space-y-5" onSubmit={handleLogin}>
           {error && (
             <div className="bg-red-100 text-red-600 p-3 rounded-lg text-sm">
               {error}
@@ -106,31 +109,23 @@ function LoginPage() {
           >
             {loading ? "Signing In..." : "Sign In"}
           </button>
-
         </form>
 
         <div className="my-6 flex items-center">
           <div className="flex-1 h-px bg-gray-200"></div>
 
-          <span className="px-4 text-sm text-gray-400">
-            OR
-          </span>
+          <span className="px-4 text-sm text-gray-400">OR</span>
 
           <div className="flex-1 h-px bg-gray-200"></div>
         </div>
 
         <div className="text-center">
-          <p className="text-gray-600 text-sm">
-            Don&apos;t have an account?
-          </p>
+          <p className="text-gray-600 text-sm">Don&apos;t have an account?</p>
 
-          <button
-            className="mt-3 w-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition py-3 rounded-xl font-semibold"
-          >
+          <button className="mt-3 w-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition py-3 rounded-xl font-semibold">
             Create Account
           </button>
         </div>
-
       </div>
     </div>
   );
