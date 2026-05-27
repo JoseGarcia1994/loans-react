@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PaymentList from "./PaymentList";
 
-function LoanCard({ loan }) {
+function LoanCard({ loan, fetchLoans }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -54,7 +54,10 @@ function LoanCard({ loan }) {
       </div>
 
       {open && (
-        <PaymentList payments={loan.payments} />
+        <PaymentList
+            payments={loan.payments}
+            fetchLoans={fetchLoans}
+        />
       )}
 
     </div>

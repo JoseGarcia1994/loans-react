@@ -35,6 +35,7 @@ function Dashboard() {
           <LoanCard
             key={loan.id}
             loan={loan}
+            fetchLoans={fetchLoans}
           />
         ))}
 
