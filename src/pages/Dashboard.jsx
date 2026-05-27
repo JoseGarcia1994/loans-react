@@ -25,9 +25,19 @@ function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
 
-      <h1 className="text-3xl font-bold mb-6">
-        Prestamos
-      </h1>
+      <div className="flex justify-between items-center mb-6">
+
+        <h1 className="text-3xl font-bold">
+            Prestamos
+        </h1>
+
+        <button
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-semibold transition"
+        >
+            Nuevo Prestamo
+        </button>
+
+       </div>
 
       <div className="grid gap-5">
 
