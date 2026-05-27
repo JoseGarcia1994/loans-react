@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import CreateLoan from "./pages/CreateLoan";
+import EditLoan from "./pages/EditLoan";
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/create-loan" element={<CreateLoan />} />
+
+        <Route path="/edit-loan/:id" element={<EditLoan />} />
       </Routes>
     </BrowserRouter>
   );

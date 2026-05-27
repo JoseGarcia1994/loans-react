@@ -52,6 +52,11 @@ function Dashboard() {
       }
   };
 
+  // Edit Loan
+  const editLoan = (loan) => {
+  navigate(`/edit-loan/${loan.id}`);
+};
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
 
@@ -78,6 +83,7 @@ function Dashboard() {
             loan={loan}
             fetchLoans={fetchLoans}
             deleteLoan={deleteLoan}
+            editLoan={editLoan}
           />
         ))}
 
