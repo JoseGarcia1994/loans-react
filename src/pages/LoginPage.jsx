@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,8 +40,7 @@ function LoginPage() {
 
       alert("Login successful!");
 
-      // Here you can later redirect
-      // navigate("/dashboard");
+      navigate("/dashboard");
 
     } catch (err) {
       setError(err.message);
