@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import LoanCard from "../components/LoanCard";
 
 function Dashboard() {
   const [loans, setLoans] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchLoans();
@@ -32,6 +36,7 @@ function Dashboard() {
         </h1>
 
         <button
+            onClick={() => navigate("/create-loan")}
             className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-semibold transition"
         >
             Nuevo Prestamo
