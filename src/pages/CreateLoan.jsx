@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/ui/Alert";
+import Input from "../components/ui/Input";
 
 function CreateLoan() {
   const navigate = useNavigate();
@@ -71,52 +72,34 @@ function CreateLoan() {
         {error && <Alert type="error" message={error} />}
 
         <form onSubmit={createLoan} className="space-y-5">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Nombre
-            </label>
+          <Input
+            label="Nombre"
+            type="text"
+            name="name"
+            placeholder="Nombre del cliente"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
 
-            <input
-              type="text"
-              name="name"
-              placeholder="Nombre del cliente"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          <Input
+            label="Monto"
+            type="number"
+            name="amount"
+            placeholder="5000"
+            value={formData.amount}
+            onChange={handleChange}
+            required
+          />
 
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Monto
-            </label>
-
-            <input
-              type="number"
-              name="amount"
-              placeholder="5000"
-              value={formData.amount}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Fecha
-            </label>
-
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          <Input
+            label="Fecha"
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
 
           <button
             type="submit"
