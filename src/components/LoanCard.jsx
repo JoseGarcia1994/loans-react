@@ -68,7 +68,7 @@ function LoanCard({ loan, fetchLoans, deleteLoan, editLoan }) {
         </button>
       </div>
 
-      {open && <PaymentList payments={loan.payments} fetchLoans={fetchLoans} />}
+      {open && <PaymentList payments={loan.payments} fetchLoans={fetchLoans} loan={loan} />}
     </div>
   );
 }
