@@ -1,8 +1,31 @@
 import { useState } from "react";
 import PaymentList from "./PaymentList";
 
-function LoanCard({ loan, fetchLoans, deleteLoan, editLoan }) {
+function LoanCard({ loan, fetchLoans, deleteLoan, editLoan, setShowSuccess }) {
   const [open, setOpen] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  
+
+  // Pop up to delete loan
+  const handleDelete = async () => {
+    try {
+      setLoadingDelete(true);
+
+      await deleteLoan(loan.id);
+
+      setShowDeleteModal(false);
+      setShowSuccess(true);
+
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 2500);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingDelete(false);
+    }
+  };
 
   return (
     <div className="bg-white p-3 rounded-2xl shadow-md">
@@ -39,7 +62,7 @@ function LoanCard({ loan, fetchLoans, deleteLoan, editLoan }) {
 
           {/* Eliminate Button */}
           <button
-            onClick={() => deleteLoan(loan.id)}
+            onClick={() => setShowDeleteModal(true)}
             className="text-red-500 hover:text-red-700 transition text-lg"
           >
             🗑
@@ -68,7 +91,48 @@ function LoanCard({ loan, fetchLoans, deleteLoan, editLoan }) {
         </button>
       </div>
 
-      {open && <PaymentList payments={loan.payments} fetchLoans={fetchLoans} loan={loan} />}
+      {open && (
+        <PaymentList
+          payments={loan.payments}
+          fetchLoans={fetchLoans}
+          loan={loan}
+        />
+      )}
+
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Blur background */}
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+
+          {/* Modal */}
+          <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl p-6 w-80 animate-fadeIn">
+            <h2 className="text-lg font-bold text-gray-800 mb-2">
+              ¿Eliminar préstamo?
+            </h2>
+
+            <p className="text-sm text-gray-600 mb-5">
+              Esta acción no se puede deshacer.
+            </p>
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-sm"
+              >
+                Cancelar
+              </button>
+
+              <button
+                onClick={handleDelete}
+                disabled={loadingDelete}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm"
+              >
+                {loadingDelete ? "Eliminando..." : "Eliminar"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

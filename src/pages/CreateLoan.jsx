@@ -41,11 +41,13 @@ function CreateLoan() {
       });
 
       if (!response.ok) {
+        const errorData = await response.json();
+        console.log(errorData);
+
         throw new Error("Error creating loan");
       }
 
       navigate("/dashboard");
-
     } catch (error) {
       console.error(error);
       alert("Error creating loan");
@@ -56,18 +58,12 @@ function CreateLoan() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
           Nuevo Prestamo
         </h1>
 
-        <form
-          onSubmit={createLoan}
-          className="space-y-5"
-        >
-
+        <form onSubmit={createLoan} className="space-y-5">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Nombre
@@ -122,11 +118,8 @@ function CreateLoan() {
           >
             {loading ? "Creando..." : "Crear Prestamo"}
           </button>
-
         </form>
-
       </div>
-
     </div>
   );
 }

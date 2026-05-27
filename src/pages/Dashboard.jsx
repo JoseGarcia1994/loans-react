@@ -5,6 +5,7 @@ import LoanCard from "../components/LoanCard";
 
 function Dashboard() {
   const [loans, setLoans] = useState([]);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,55 +29,51 @@ function Dashboard() {
 
   // Delete Loan
   const deleteLoan = async (loanId) => {
-      try {
-        const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-        const response = await fetch(
-          `http://127.0.0.1:8000/loans/${loanId}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+      const response = await fetch(`http://127.0.0.1:8000/loans/${loanId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        if (!response.ok) {
-          throw new Error("Error deleting loan");
-        }
-
-        fetchLoans();
-
-      } catch (error) {
-        console.error(error);
+      if (!response.ok) {
+        throw new Error("Error deleting loan");
       }
+
+      fetchLoans();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // Edit Loan
   const editLoan = (loan) => {
-  navigate(`/edit-loan/${loan.id}`);
-};
+    navigate(`/edit-loan/${loan.id}`);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
+      {showSuccess && (
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 bg-green-500 text-white px-4 py-3 rounded-xl shadow-lg animate-fadeIn z-50">
+          Préstamo eliminado correctamente
+        </div>
+      )}
 
       <div className="flex justify-between items-center mb-6">
-
-        <h1 className="text-3xl font-bold">
-            Prestamos
-        </h1>
+        <h1 className="text-3xl font-bold">Prestamos</h1>
 
         <button
-            onClick={() => navigate("/create-loan")}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-semibold transition"
+          onClick={() => navigate("/create-loan")}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-semibold transition"
         >
-            Nuevo Prestamo
+          Nuevo Prestamo
         </button>
-
-       </div>
+      </div>
 
       <div className="grid gap-5">
-
         {loans.map((loan) => (
           <LoanCard
             key={loan.id}
@@ -84,11 +81,10 @@ function Dashboard() {
             fetchLoans={fetchLoans}
             deleteLoan={deleteLoan}
             editLoan={editLoan}
+            setShowSuccess={setShowSuccess}
           />
         ))}
-
       </div>
-
     </div>
   );
 }
