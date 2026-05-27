@@ -35,7 +35,9 @@ function PaymentList({ payments, fetchLoans }) {
 
       <div className="space-y-2">
 
-        {payments.map((payment) => (
+        {[...payments]
+            .sort((a, b) => a.payment_number - b.payment_number)
+            .map((payment) => (
           <div
             key={payment.payment_id}
             className="flex justify-between items-center bg-gray-50 p-2 rounded-lg text-sm"
