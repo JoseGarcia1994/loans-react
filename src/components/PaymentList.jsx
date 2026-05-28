@@ -55,35 +55,60 @@ function PaymentList({ payments, fetchLoans, loan }) {
       <div className="space-y-2">
         {[...payments]
           .sort((a, b) => a.payment_number - b.payment_number)
-          .map((payment) => (
-            <div
-              key={payment.payment_id}
-              className="flex justify-between items-center bg-gray-50 p-2 rounded-lg text-sm"
-            >
-              <span>Pago #{payment.payment_number}</span>
+          .map((payment, index) => {
+            // detectar siguiente pago pendiente
+            const nextPendingPayment = [...payments]
+              .sort((a, b) => a.payment_number - b.payment_number)
+              .find((p) => !p.paid);
 
-              <span>{payment.payment_date}</span>
+            const isNextPayment =
+              nextPendingPayment?.payment_id === payment.payment_id;
 
-              <div className="flex items-center gap-3">
-                <span
-                  className={`font-semibold ${
-                    payment.paid ? "text-green-600" : "text-red-500"
-                  }`}
-                >
-                  {payment.paid ? "Paid" : "Pending"}
-                </span>
+            return (
+              <div
+                key={payment.payment_id}
+                className={`flex justify-between items-center p-2 rounded-lg text-sm transition-all
+          
+          ${
+            isNextPayment
+              ? "bg-blue-50 border border-blue-300 shadow-sm"
+              : "bg-gray-50"
+          }
+        `}
+              >
+                <div className="flex items-center gap-2">
+                  <span>Pago #{payment.payment_number}</span>
 
-                {!payment.paid && (
-                  <button
-                    onClick={() => markAsPaid(payment.payment_id)}
-                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg text-xs font-semibold transition"
+                  {isNextPayment && (
+                    <span className="text-[10px] bg-blue-600 text-white px-2 py-[2px] rounded-full font-semibold uppercase tracking-wide">
+                      Siguiente
+                    </span>
+                  )}
+                </div>
+
+                <span>{payment.payment_date}</span>
+
+                <div className="flex items-center gap-3">
+                  <span
+                    className={`font-semibold ${
+                      payment.paid ? "text-green-600" : "text-red-500"
+                    }`}
                   >
-                    Pay
-                  </button>
-                )}
+                    {payment.paid ? "Paid" : "Pending"}
+                  </span>
+
+                  {!payment.paid && (
+                    <button
+                      onClick={() => markAsPaid(payment.payment_id)}
+                      className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg text-xs font-semibold transition"
+                    >
+                      Pay
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
       </div>
     </div>
   );
