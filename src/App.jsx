@@ -4,15 +4,17 @@ import Dashboard from "./pages/Dashboard";
 import CreateLoan from "./pages/CreateLoan";
 import EditLoan from "./pages/EditLoan";
 import WeeklyPayments from "./pages/WeeklyPayments";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/create-loan" element={<CreateLoan />} />
-
         <Route path="/edit-loan/:id" element={<EditLoan />} />
         <Route path="/weekly-payments" element={<WeeklyPayments />} />
       </Routes>

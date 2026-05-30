@@ -107,7 +107,10 @@ function LoginPage() {
         <div className="text-center">
           <p className="text-gray-600 text-sm">Don&apos;t have an account?</p>
 
-          <button className="mt-3 w-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition py-3 rounded-xl font-semibold">
+          <button
+            onClick={() => navigate("/register")}
+            className="mt-3 w-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition py-3 rounded-xl font-semibold"
+          >
             Create Account
           </button>
         </div>
