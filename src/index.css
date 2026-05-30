@@ -14,3 +14,8 @@
 .animate-fadeIn {
   animation: fadeIn 0.2s ease-out;
 }
+
+.navbar-glass {
+  box-shadow:
+    0 10px 40px rgba(15, 23, 42, 0.08);
+}

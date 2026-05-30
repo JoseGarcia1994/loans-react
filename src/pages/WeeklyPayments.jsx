@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Layout from "../components/Layout";
 
 function WeeklyPayments() {
   const [payments, setPayments] = useState([]);
@@ -60,7 +61,7 @@ function WeeklyPayments() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <Layout>
 
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
@@ -163,7 +164,7 @@ function WeeklyPayments() {
         )}
 
       </div>
-    </div>
+    </Layout>
   );
 }
 

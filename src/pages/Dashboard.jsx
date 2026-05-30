@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import LoanCard from "../components/LoanCard";
+import Layout from "../components/Layout";
 
 function Dashboard() {
   const [loans, setLoans] = useState([]);
@@ -55,29 +56,37 @@ function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <Layout>
       {showSuccess && (
         <div className="fixed top-5 left-1/2 -translate-x-1/2 bg-green-500 text-white px-4 py-3 rounded-xl shadow-lg animate-fadeIn z-50">
           Préstamo eliminado correctamente
         </div>
       )}
 
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Prestamos</h1>
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800">Préstamos</h1>
 
-        <button
-          onClick={() => navigate("/weekly-payments")}
-          className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl font-semibold transition"
-        >
-          Cobranza Semanal
-        </button>
+          <p className="text-gray-500">
+            Gestiona y monitorea tu cartera de clientes
+          </p>
+        </div>
 
-        <button
-          onClick={() => navigate("/create-loan")}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-semibold transition"
-        >
-          Nuevo Prestamo
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={() => navigate("/weekly-payments")}
+            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl font-semibold transition"
+          >
+            Cobranza Semanal
+          </button>
+
+          <button
+            onClick={() => navigate("/create-loan")}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-semibold transition"
+          >
+            Nuevo Prestamo
+          </button>
+        </div>
       </div>
 
       <div className="grid gap-5">
@@ -92,7 +101,7 @@ function Dashboard() {
           />
         ))}
       </div>
-    </div>
+    </Layout>
   );
 }
 

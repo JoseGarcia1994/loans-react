@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Alert from "../components/ui/Alert";
 import Input from "../components/ui/Input";
+import Layout from "../components/Layout";
 
 function EditLoan() {
   const { id } = useParams();
@@ -91,52 +92,54 @@ function EditLoan() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">
-          Editar Prestamo
-        </h1>
+    <Layout>
+      <div className="flex justify-center">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6">
+            Editar Prestamo
+          </h1>
 
-        {error && <Alert type="error" message={error} />}
+          {error && <Alert type="error" message={error} />}
 
-        <form onSubmit={updateLoan} className="space-y-5">
-          <Input
-            label="Nombre"
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+          <form onSubmit={updateLoan} className="space-y-5">
+            <Input
+              label="Nombre"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
 
-          <Input
-            label="Monto"
-            type="number"
-            name="amount"
-            value={formData.amount}
-            onChange={handleChange}
-            required
-          />
+            <Input
+              label="Monto"
+              type="number"
+              name="amount"
+              value={formData.amount}
+              onChange={handleChange}
+              required
+            />
 
-          <Input
-            label="Fecha"
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
+            <Input
+              label="Fecha"
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              required
+            />
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-semibold disabled:bg-blue-300"
-          >
-            {loading ? "Actualizando..." : "Actualizar Prestamo"}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-semibold disabled:bg-blue-300"
+            >
+              {loading ? "Actualizando..." : "Actualizar Prestamo"}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
