@@ -24,7 +24,7 @@ function WeeklyPayments() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -39,7 +39,6 @@ function WeeklyPayments() {
         start: data.week_start,
         end: data.week_end,
       });
-
     } catch (error) {
       console.error(error);
     } finally {
@@ -47,9 +46,35 @@ function WeeklyPayments() {
     }
   };
 
+  // Pay payments
+  const markAsPaid = async (paymentId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        `http://127.0.0.1:8000/payments/${paymentId}/pay`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Error updating payment");
+      }
+
+      // refrescar loans
+      fetchLoans();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const totalWeekly = payments.reduce(
     (acc, payment) => acc + payment.payment_amount,
-    0
+    0,
   );
 
   if (loading) {
@@ -62,14 +87,10 @@ function WeeklyPayments() {
 
   return (
     <Layout>
-
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">
-            Cobranza Semanal
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800">Cobranza Semanal</h1>
 
           <p className="text-gray-500 mt-1">
             {weekInfo.start} → {weekInfo.end}
@@ -77,26 +98,18 @@ function WeeklyPayments() {
         </div>
 
         <div className="bg-green-100 text-green-700 px-5 py-3 rounded-2xl shadow-sm">
-          <p className="text-sm font-semibold">
-            Total a cobrar
-          </p>
+          <p className="text-sm font-semibold">Total a cobrar</p>
 
-          <p className="text-2xl font-bold">
-            ${totalWeekly}
-          </p>
+          <p className="text-2xl font-bold">${totalWeekly}</p>
         </div>
-
       </div>
 
       {/* Buttons */}
       <div className="flex gap-3 mb-6">
-
         <button
           onClick={() => setOffset(0)}
           className={`px-5 py-2 rounded-xl font-semibold transition ${
-            offset === 0
-              ? "bg-blue-600 text-white"
-              : "bg-white text-gray-700"
+            offset === 0 ? "bg-blue-600 text-white" : "bg-white text-gray-700"
           }`}
         >
           Semana Actual
@@ -105,21 +118,16 @@ function WeeklyPayments() {
         <button
           onClick={() => setOffset(1)}
           className={`px-5 py-2 rounded-xl font-semibold transition ${
-            offset === 1
-              ? "bg-blue-600 text-white"
-              : "bg-white text-gray-700"
+            offset === 1 ? "bg-blue-600 text-white" : "bg-white text-gray-700"
           }`}
         >
           Próxima Semana
         </button>
-
       </div>
 
       {/* Payments List */}
       <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-
-        <div className="grid grid-cols-4 bg-gray-50 p-4 font-semibold text-gray-700 border-b">
-
+        <div className="grid grid-cols-5 bg-gray-50 p-4 font-semibold text-gray-700 border-b">
           <span>Cliente</span>
 
           <span>Pago</span>
@@ -128,6 +136,7 @@ function WeeklyPayments() {
 
           <span>Cobro</span>
 
+          <span>Acción</span>
         </div>
 
         {payments.length === 0 ? (
@@ -136,12 +145,10 @@ function WeeklyPayments() {
           </div>
         ) : (
           payments.map((payment) => (
-
             <div
               key={payment.payment_id}
-              className="grid grid-cols-4 items-center p-4 border-b hover:bg-gray-50 transition"
+              className="grid grid-cols-5 items-center p-4 border-b hover:bg-gray-50 transition"
             >
-
               <span className="font-medium text-gray-800">
                 {payment.loan_name}
               </span>
@@ -150,19 +157,33 @@ function WeeklyPayments() {
                 Pago #{payment.payment_number}
               </span>
 
-              <span className="text-gray-600">
-                {payment.payment_date}
-              </span>
+              <span className="text-gray-600">{payment.payment_date}</span>
 
               <span className="font-bold text-green-600">
                 ${payment.payment_amount}
               </span>
 
+              <div>
+                <button
+                  onClick={() => markAsPaid(payment.payment_id)}
+                  className="
+                  bg-green-500
+                  hover:bg-green-600
+                  text-white
+                  px-3
+                  py-1
+                  rounded-lg
+                  text-xs
+                  font-semibold
+                  transition
+                  "
+                >
+                  Cobrar
+                </button>
+              </div>
             </div>
-
           ))
         )}
-
       </div>
     </Layout>
   );

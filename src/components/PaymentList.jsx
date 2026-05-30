@@ -1,4 +1,4 @@
-function PaymentList({ payments, fetchLoans, loan }) {
+function PaymentList({ payments, loan }) {
   const paymentAmount = loan.amount / 10; // si usas 10 pagos (ajústalo si cambia)
 
   const totalDebt = paymentAmount * loan.payments.length;
@@ -6,31 +6,6 @@ function PaymentList({ payments, fetchLoans, loan }) {
   const totalPaid = loan.payments.filter((p) => p.paid).length * paymentAmount;
 
   const remaining = totalDebt - totalPaid;
-
-  const markAsPaid = async (paymentId) => {
-    try {
-      const token = localStorage.getItem("token");
-
-      const response = await fetch(
-        `http://127.0.0.1:8000/payments/${paymentId}/pay`,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error("Error updating payment");
-      }
-
-      // refrescar loans
-      fetchLoans();
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div className="mt-4 border-t pt-3">
@@ -96,15 +71,6 @@ function PaymentList({ payments, fetchLoans, loan }) {
                   >
                     {payment.paid ? "Paid" : "Pending"}
                   </span>
-
-                  {!payment.paid && (
-                    <button
-                      onClick={() => markAsPaid(payment.payment_id)}
-                      className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg text-xs font-semibold transition"
-                    >
-                      Pay
-                    </button>
-                  )}
                 </div>
               </div>
             );

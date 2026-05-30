@@ -94,7 +94,6 @@ function LoanCard({ loan, fetchLoans, deleteLoan, editLoan, setShowSuccess }) {
       {open && (
         <PaymentList
           payments={loan.payments}
-          fetchLoans={fetchLoans}
           loan={loan}
         />
       )}
