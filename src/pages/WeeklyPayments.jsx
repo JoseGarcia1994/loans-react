@@ -126,18 +126,19 @@ function WeeklyPayments() {
 
       {/* Payments List */}
       <div className="hidden md:block bg-white rounded-2xl shadow-md overflow-hidden">
-        <div className="grid grid-cols-5 bg-gray-50 p-4 font-semibold text-gray-700 border-b">
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] bg-gray-50 p-4 font-semibold text-gray-700 border-b">
           <span>Cliente</span>
           <span>Pago</span>
           <span>Fecha</span>
           <span>Cobro</span>
+          <span>Estado</span>
           <span>Acción</span>
         </div>
 
         {payments.map((payment) => (
           <div
             key={payment.payment_id}
-            className="grid grid-cols-5 items-center p-4 border-b hover:bg-gray-50 transition"
+            className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] items-center p-4 border-b hover:bg-gray-50 transition"
           >
             <span className="font-medium">{payment.loan_name}</span>
 
@@ -151,12 +152,46 @@ function WeeklyPayments() {
               ${payment.payment_amount}
             </span>
 
-            <button
-              onClick={() => markAsPaid(payment.payment_id)}
-              className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-xs font-semibold"
+            <span
+              className={`font-semibold ${
+                payment.paid ? "text-green-600" : "text-orange-500"
+              }`}
             >
-              Cobrar
-            </button>
+              {payment.paid ? "Pagado" : "Pendiente"}
+            </span>
+
+            {payment.paid ? (
+              <span
+                className="
+                inline-block
+                bg-green-100
+                text-green-700
+                px-3
+                py-2
+                rounded-lg
+                text-xs
+                font-semibold
+              "
+              >
+                Pagado
+              </span>
+            ) : (
+              <button
+                onClick={() => markAsPaid(payment.payment_id)}
+                className="
+                bg-green-500
+                hover:bg-green-600
+                text-white
+                px-3
+                py-2
+                rounded-lg
+                text-xs
+                font-semibold
+              "
+              >
+                Pagar
+              </button>
+            )}
           </div>
         ))}
       </div>
@@ -192,21 +227,38 @@ function WeeklyPayments() {
               </div>
             </div>
 
-            <button
-              onClick={() => markAsPaid(payment.payment_id)}
-              className="
-              mt-4
-              w-full
-              bg-green-500
-              hover:bg-green-600
-              text-white
-              py-3
-              rounded-xl
-              font-semibold
-            "
-            >
-              Cobrar
-            </button>
+            {payment.paid ? (
+              <div
+                className="
+                mt-4
+                w-full
+                bg-green-100
+                text-green-700
+                py-3
+                rounded-xl
+                text-center
+                font-semibold
+              "
+              >
+                Pagado
+              </div>
+            ) : (
+              <button
+                onClick={() => markAsPaid(payment.payment_id)}
+                className="
+                mt-4
+                w-full
+                bg-green-500
+                hover:bg-green-600
+                text-white
+                py-3
+                rounded-xl
+                font-semibold
+              "
+              >
+                Cobrar
+              </button>
+            )}
           </div>
         ))}
       </div>
