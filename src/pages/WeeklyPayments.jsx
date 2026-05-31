@@ -88,7 +88,7 @@ function WeeklyPayments() {
   return (
     <Layout>
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
         <div>
           <h1 className="text-3xl font-bold text-gray-800">Cobranza Semanal</h1>
 
@@ -105,10 +105,10 @@ function WeeklyPayments() {
       </div>
 
       {/* Buttons */}
-      <div className="flex gap-3 mb-6">
+      <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <button
           onClick={() => setOffset(0)}
-          className={`px-5 py-2 rounded-xl font-semibold transition ${
+          className={`w-full sm:w-auto px-5 py-2 rounded-xl font-semibold transition ${
             offset === 0 ? "bg-blue-600 text-white" : "bg-white text-gray-700"
           }`}
         >
@@ -117,7 +117,7 @@ function WeeklyPayments() {
 
         <button
           onClick={() => setOffset(1)}
-          className={`px-5 py-2 rounded-xl font-semibold transition ${
+          className={`w-full sm:w-auto px-5 py-2 rounded-xl font-semibold transition ${
             offset === 1 ? "bg-blue-600 text-white" : "bg-white text-gray-700"
           }`}
         >
@@ -126,64 +126,90 @@ function WeeklyPayments() {
       </div>
 
       {/* Payments List */}
-      <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+      <div className="hidden md:block bg-white rounded-2xl shadow-md overflow-hidden">
         <div className="grid grid-cols-5 bg-gray-50 p-4 font-semibold text-gray-700 border-b">
           <span>Cliente</span>
-
           <span>Pago</span>
-
           <span>Fecha</span>
-
           <span>Cobro</span>
-
           <span>Acción</span>
         </div>
 
-        {payments.length === 0 ? (
-          <div className="p-6 text-center text-gray-500">
-            No hay pagos pendientes esta semana
-          </div>
-        ) : (
-          payments.map((payment) => (
-            <div
-              key={payment.payment_id}
-              className="grid grid-cols-5 items-center p-4 border-b hover:bg-gray-50 transition"
+        {payments.map((payment) => (
+          <div
+            key={payment.payment_id}
+            className="grid grid-cols-5 items-center p-4 border-b hover:bg-gray-50 transition"
+          >
+            <span className="font-medium">{payment.loan_name}</span>
+
+            <span className="text-blue-600 font-semibold">
+              Pago #{payment.payment_number}
+            </span>
+
+            <span>{payment.payment_date}</span>
+
+            <span className="font-bold text-green-600">
+              ${payment.payment_amount}
+            </span>
+
+            <button
+              onClick={() => markAsPaid(payment.payment_id)}
+              className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-xs font-semibold"
             >
-              <span className="font-medium text-gray-800">
-                {payment.loan_name}
-              </span>
+              Cobrar
+            </button>
+          </div>
+        ))}
+      </div>
 
-              <span className="text-blue-600 font-semibold">
+      {/* Payment list / Mobile View */}
+      <div className="md:hidden space-y-4">
+        {payments.map((payment) => (
+          <div
+            key={payment.payment_id}
+            className="bg-white rounded-2xl shadow-md p-4"
+          >
+            <div className="mb-3">
+              <h3 className="font-bold text-gray-800">{payment.loan_name}</h3>
+
+              <p className="text-blue-600 font-semibold">
                 Pago #{payment.payment_number}
-              </span>
+              </p>
+            </div>
 
-              <span className="text-gray-600">{payment.payment_date}</span>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-500">Fecha</span>
 
-              <span className="font-bold text-green-600">
-                ${payment.payment_amount}
-              </span>
+                <span>{payment.payment_date}</span>
+              </div>
 
-              <div>
-                <button
-                  onClick={() => markAsPaid(payment.payment_id)}
-                  className="
-                  bg-green-500
-                  hover:bg-green-600
-                  text-white
-                  px-3
-                  py-1
-                  rounded-lg
-                  text-xs
-                  font-semibold
-                  transition
-                  "
-                >
-                  Cobrar
-                </button>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Cobro</span>
+
+                <span className="font-bold text-green-600">
+                  ${payment.payment_amount}
+                </span>
               </div>
             </div>
-          ))
-        )}
+
+            <button
+              onClick={() => markAsPaid(payment.payment_id)}
+              className="
+              mt-4
+              w-full
+              bg-green-500
+              hover:bg-green-600
+              text-white
+              py-3
+              rounded-xl
+              font-semibold
+            "
+            >
+              Cobrar
+            </button>
+          </div>
+        ))}
       </div>
     </Layout>
   );
