@@ -65,8 +65,7 @@ function WeeklyPayments() {
         throw new Error("Error updating payment");
       }
 
-      // refrescar loans
-      fetchLoans();
+      fetchWeeklyPayments(offset);
     } catch (error) {
       console.error(error);
     }
