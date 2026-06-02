@@ -197,16 +197,46 @@ function Navbar() {
               gap-2
               "
           >
-            <NavLink to="/dashboard" className={navStyle}>
+            <NavLink
+              to="/dashboard"
+              className={navStyle}
+              onClick={() => setMenuOpen(false)}
+            >
               Dashboard
             </NavLink>
 
-            <NavLink to="/weekly-payments" className={navStyle}>
+            <NavLink
+              to="/weekly-payments"
+              className={navStyle}
+              onClick={() => setMenuOpen(false)}
+            >
               Cobranza
             </NavLink>
 
-            <NavLink to="/create-loan" className={navStyle}>
+            <NavLink
+              to="/create-loan"
+              className={navStyle}
+              onClick={() => setMenuOpen(false)}
+            >
               Nuevo Préstamo
+            </NavLink>
+
+            <NavLink
+              to="/profile"
+              className={navStyle}
+              onClick={() => setMenuOpen(false)}
+            >
+              <CircleUser size={18} />
+              Mi Perfil
+            </NavLink>
+
+            <NavLink
+              to="/change-password"
+              className={navStyle}
+              onClick={() => setMenuOpen(false)}
+            >
+              <Lock size={18} />
+              Cambiar contraseña
             </NavLink>
 
             <button
