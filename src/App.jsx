@@ -5,6 +5,8 @@ import CreateLoan from "./pages/CreateLoan";
 import EditLoan from "./pages/EditLoan";
 import WeeklyPayments from "./pages/WeeklyPayments";
 import RegisterPage from "./pages/RegisterPage";
+import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/change-password" element={<ChangePassword />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/create-loan" element={<CreateLoan />} />

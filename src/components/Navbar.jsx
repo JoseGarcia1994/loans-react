@@ -8,12 +8,15 @@ import {
   LogOut,
   Menu,
   X,
+  CircleUser,
+  Lock,
 } from "lucide-react";
 
 function Navbar() {
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -81,25 +84,91 @@ function Navbar() {
             </NavLink>
           </nav>
 
-          {/* Logout */}
-          <button
-            onClick={logout}
-            className="
-            hidden
-            md:flex
-            items-center
-            gap-2
-            px-4
-            py-2
-            rounded-full  
-            bg-red-50
-            text-red-600
-            hover:bg-red-100
+          {/* User Settings */}
+          <div className="hidden md:block relative">
+            <button
+              onClick={() => setProfileOpen(!profileOpen)}
+              className="
+              w-10
+              h-10
+              rounded-full
+              bg-slate-100
+              hover:bg-slate-200
+              flex
+              items-center
+              justify-center
             "
-          >
-            <LogOut size={18} />
-            Logout
-          </button>
+            >
+              <CircleUser size={22} />
+            </button>
+
+            {profileOpen && (
+              <div
+                className="
+                absolute
+                right-0
+                top-12
+                w-56
+                bg-white
+                rounded-2xl
+                shadow-lg
+                border
+                p-2
+                z-50
+              "
+              >
+                <NavLink
+                  to="/profile"
+                  className="
+                  flex
+                  items-center
+                  gap-2
+                  px-4
+                  py-2
+                  rounded-lg
+                  hover:bg-slate-100
+                "
+                >
+                  <CircleUser size={18} />
+                  Mi Perfil
+                </NavLink>
+
+                <NavLink
+                  to="/change-password"
+                  className="
+                  flex
+                  items-center
+                  gap-2
+                  px-4
+                  py-2
+                  rounded-lg
+                  hover:bg-slate-100
+                "
+                >
+                  <Lock size={18} />
+                  Cambiar contraseña
+                </NavLink>
+
+                <button
+                  onClick={logout}
+                  className="
+                  w-full
+                  flex
+                  items-center
+                  gap-2
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-red-600
+                  hover:bg-red-50
+                "
+                >
+                  <LogOut size={18} />
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
 
           {/* Mobile Hamburger */}
           <button
@@ -114,11 +183,11 @@ function Navbar() {
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-        
+
         {/* Mobile Menu */}
         {menuOpen && (
-            <div
-              className="
+          <div
+            className="
               md:hidden
               mt-4
               border-t
@@ -127,22 +196,22 @@ function Navbar() {
               flex-col
               gap-2
               "
-            >
-              <NavLink to="/dashboard" className={navStyle}>
-                Dashboard
-              </NavLink>
+          >
+            <NavLink to="/dashboard" className={navStyle}>
+              Dashboard
+            </NavLink>
 
-              <NavLink to="/weekly-payments" className={navStyle}>
-                Cobranza
-              </NavLink>
+            <NavLink to="/weekly-payments" className={navStyle}>
+              Cobranza
+            </NavLink>
 
-              <NavLink to="/create-loan" className={navStyle}>
-                Nuevo Préstamo
-              </NavLink>
+            <NavLink to="/create-loan" className={navStyle}>
+              Nuevo Préstamo
+            </NavLink>
 
-              <button
-                onClick={logout}
-                className="
+            <button
+              onClick={logout}
+              className="
                 bg-red-50
                 text-red-600
                 rounded-xl
@@ -150,11 +219,11 @@ function Navbar() {
                 py-2
                 text-left
                 "
-              >
-                Logout
-              </button>
-            </div>
-          )}
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </div>
     </header>
   );
