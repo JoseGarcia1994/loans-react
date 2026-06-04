@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import CreateLoan from "./pages/CreateLoan";
@@ -12,7 +13,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<Home />} />
+
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/change-password" element={<ChangePassword />} />
