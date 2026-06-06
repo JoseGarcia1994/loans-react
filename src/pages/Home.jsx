@@ -146,19 +146,72 @@ function Home() {
 
       {/* Video */}
       <section id="demo" className="max-w-5xl mx-auto px-6 pb-20">
-
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-
           <video className="w-full" controls poster="/preview.jpg">
-
             <source src="/demo.mp4" type="video/mp4" />
-
             Tu navegador no soporta videos.
-
           </video>
+        </div>
+      </section>
 
+      {/* Cómo funciona */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900">Cómo funciona</h2>
+
+          <p className="mt-3 text-gray-600">
+            Organiza tus préstamos en pocos pasos.
+          </p>
         </div>
 
+        <div className="grid md:grid-cols-4 gap-6">
+          {[
+            {
+              number: "1",
+
+              title: "Registra clientes",
+
+              description: "Guarda la información de cada cliente.",
+            },
+
+            {
+              number: "2",
+
+              title: "Crea préstamos",
+
+              description: "Define monto, fecha y duración.",
+            },
+
+            {
+              number: "3",
+
+              title: "Registra pagos",
+
+              description: "Actualiza los pagos semanalmente.",
+            },
+
+            {
+              number: "4",
+
+              title: "Consulta saldos",
+
+              description: "Visualiza lo pendiente en segundos.",
+            },
+          ].map((step) => (
+            <div
+              key={step.number}
+              className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center"
+            >
+              <div className="w-12 h-12 mx-auto bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold text-xl">
+                {step.number}
+              </div>
+
+              <h3 className="mt-4 font-semibold text-lg">{step.title}</h3>
+
+              <p className="mt-2 text-gray-600 text-sm">{step.description}</p>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );
