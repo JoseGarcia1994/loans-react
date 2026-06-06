@@ -1,7 +1,6 @@
-// src/components/PublicNavbar.jsx
-
 import { Link } from "react-router-dom";
 import { Wallet } from "lucide-react";
+import logo from "../assets/Prestamo_Control.png"
 
 function PublicNavbar() {
   return (
@@ -21,26 +20,11 @@ function PublicNavbar() {
       >
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div
-              className="
-              w-10
-              h-10
-              rounded-full
-              bg-green-600
-              flex
-              items-center
-              justify-center
-              text-white
-              "
-            >
-              <Wallet size={20} />
-            </div>
-
-            <h1 className="font-bold text-lg md:text-xl text-gray-800">
-              Tu Cartera
-            </h1>
-          </Link>
+          <img
+            src={logo}
+            alt="Logo"
+            className="w-12 h-12 rounded-full object-cover border-2 border-green-600"
+          />
 
           {/* Botones */}
           <div className="flex items-center gap-3">

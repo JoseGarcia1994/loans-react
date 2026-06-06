@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import logo from "../assets/Prestamo_Control.png";
 
 import {
   LayoutDashboard,
@@ -47,24 +48,11 @@ function Navbar() {
       >
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div
-              className="
-                w-10
-                h-10
-                rounded-full
-                bg-blue-600
-                flex
-                items-center
-                justify-center
-                text-white
-              "
-            >
-              <Wallet size={20} />
-            </div>
-
-            <h1 className="font-bold text-xl text-gray-800">Tu Cartera</h1>
-          </div>
+          <img
+            src={logo}
+            alt="Logo"
+            className="w-12 h-12 rounded-full object-cover border-2 border-green-600"
+          />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-2">
