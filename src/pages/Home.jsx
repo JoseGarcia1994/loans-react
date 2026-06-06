@@ -324,6 +324,28 @@ function Home() {
           ))}
         </div>
       </section>
+
+      {/* CTA Final */}
+      <section className="py-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="bg-green-600 rounded-3xl p-12 text-center">
+            <h2 className="text-3xl font-bold text-white">
+              Comienza a organizar tus préstamos hoy mismo
+            </h2>
+
+            <p className="mt-4 text-green-100">
+              Lleva el control de clientes, pagos y saldos desde un solo lugar.
+            </p>
+
+            <Link
+              to="/register"
+              className="inline-block mt-8 bg-white text-green-600 px-8 py-3 rounded-xl font-semibold hover:bg-gray-100 transition"
+            >
+              Crear cuenta
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
