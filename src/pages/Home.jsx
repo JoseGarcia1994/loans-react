@@ -213,6 +213,45 @@ function Home() {
           ))}
         </div>
       </section>
+
+      {/* Beneficios */}
+      <section className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900">
+              ¿Por qué usar nuestra plataforma?
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <h3 className="font-semibold text-xl mb-3">Ahorra tiempo</h3>
+
+              <p className="text-gray-600">
+                Deja atrás las libretas y consulta toda la información en un
+                solo lugar.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <h3 className="font-semibold text-xl mb-3">Evita errores</h3>
+
+              <p className="text-gray-600">
+                Los saldos y pagos se actualizan automáticamente.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <h3 className="font-semibold text-xl mb-3">Fácil de usar</h3>
+
+              <p className="text-gray-600">
+                Diseñado para personas que necesitan una herramienta simple y
+                práctica.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
