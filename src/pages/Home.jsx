@@ -272,6 +272,58 @@ function Home() {
           </video>
         </div>
       </section>
+
+      {/* FAQ */}
+      <section className="max-w-4xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900">
+            Preguntas frecuentes
+          </h2>
+        </div>
+
+        <div className="space-y-4">
+          {[
+            {
+              q: "¿Necesito instalar algo?",
+
+              a: "No. Todo funciona desde tu navegador.",
+            },
+
+            {
+              q: "¿Puedo usarlo desde mi celular?",
+
+              a: "Sí. La plataforma es compatible con dispositivos móviles.",
+            },
+
+            {
+              q: "¿Puedo registrar varios préstamos?",
+
+              a: "Sí. Puedes administrar todos los préstamos que necesites.",
+            },
+
+            {
+              q: "¿Mis datos están seguros?",
+
+              a: "Sí. La información se almacena de forma segura.",
+            },
+
+            {
+              q: "¿La plataforma es gratuita?",
+
+              a: "Sí. Actualmente se encuentra en etapa de lanzamiento y puede utilizarse sin costo. En el futuro podrían existir planes premium con funciones adicionales.",
+            },
+          ].map((item) => (
+            <div
+              key={item.q}
+              className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
+            >
+              <h3 className="font-semibold text-lg">{item.q}</h3>
+
+              <p className="mt-2 text-gray-600">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
