@@ -143,6 +143,23 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* Video */}
+      <section id="demo" className="max-w-5xl mx-auto px-6 pb-20">
+
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+
+          <video className="w-full" controls poster="/preview.jpg">
+
+            <source src="/demo.mp4" type="video/mp4" />
+
+            Tu navegador no soporta videos.
+
+          </video>
+
+        </div>
+
+      </section>
     </div>
   );
 }
