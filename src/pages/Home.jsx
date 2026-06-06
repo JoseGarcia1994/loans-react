@@ -252,6 +252,26 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* Video */}
+      <section id="demo" className="max-w-5xl mx-auto px-6 py-20">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900">
+            Mira cómo funciona
+          </h2>
+
+          <p className="mt-3 text-gray-600">
+            Aprende a utilizar la plataforma en pocos minutos.
+          </p>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <video className="w-full" controls poster="/preview.jpg">
+            <source src="/demo.mp4" type="video/mp4" />
+            Tu navegador no soporta videos.
+          </video>
+        </div>
+      </section>
     </div>
   );
 }
