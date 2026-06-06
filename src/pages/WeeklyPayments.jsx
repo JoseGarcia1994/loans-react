@@ -12,6 +12,25 @@ function WeeklyPayments() {
 
   const [offset, setOffset] = useState(0);
 
+  const MIN_OFFSET = -10; // up to 10 weeks behind
+  const MAX_OFFSET = 1; // up to next week
+
+  const goPrevWeek = () => {
+    if (offset > MIN_OFFSET) {
+      setOffset(offset - 1);
+    }
+  };
+
+  const goNextWeek = () => {
+    if (offset < MAX_OFFSET) {
+      setOffset(offset + 1);
+    }
+  };
+
+  const goToCurrentWeek = () => {
+    setOffset(0);
+  };
+
   useEffect(() => {
     fetchWeeklyPayments(offset);
   }, [offset]);
@@ -94,7 +113,12 @@ function WeeklyPayments() {
       <WeeklyHeader weekInfo={weekInfo} totalWeekly={totalWeekly} />
 
       {/* Week Selector */}
-      <WeekSelector offset={offset} setOffset={setOffset} />
+      <WeekSelector
+        offset={offset}
+        goPrevWeek={goPrevWeek}
+        goNextWeek={goNextWeek}
+        goToCurrentWeek={goToCurrentWeek}
+      />
 
       {/* Payments List */}
       <WeeklyPaymentsTable payments={payments} markAsPaid={markAsPaid} />
