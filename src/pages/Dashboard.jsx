@@ -8,10 +8,13 @@ function Dashboard() {
   const [loans, setLoans] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const [stats, setStats] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchLoans();
+    fetchStats();
   }, []);
 
   const fetchLoans = async () => {
@@ -55,6 +58,33 @@ function Dashboard() {
     navigate(`/edit-loan/${loan.id}`);
   };
 
+  const fetchStats = async () => {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch("http://127.0.0.1:8000/loans/stats", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+    setStats(data);
+  };
+
+  const totalLoans = loans.length;
+
+  const totalAmount = loans.reduce((sum, loan) => sum + loan.amount, 0);
+
+  const totalPayments = loans.reduce(
+    (sum, loan) => sum + loan.payments.length,
+    0,
+  );
+
+  const paidPayments = loans.reduce(
+    (sum, loan) => sum + loan.payments.filter((payment) => payment.paid).length,
+    0,
+  );
+
   return (
     <Layout>
       {showSuccess && (
@@ -86,6 +116,36 @@ function Dashboard() {
           >
             Nuevo Prestamo
           </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
+        <div className="bg-white rounded-3xl p-6 shadow-sm border">
+          <p className="text-sm text-gray-500">Préstamos activos</p>
+          <h3 className="text-3xl font-bold text-gray-800 mt-2">
+            {stats?.active_loans || 0}
+          </h3>
+        </div>
+
+        <div className="bg-white rounded-3xl p-6 shadow-sm border">
+          <p className="text-sm text-gray-500">Capital activo</p>
+          <h3 className="text-3xl font-bold text-blue-600 mt-2">
+            ${stats?.total_lent || 0}
+          </h3>
+        </div>
+
+        <div className="bg-white rounded-3xl p-6 shadow-sm border">
+          <p className="text-sm text-gray-500">Pagos pendientes</p>
+          <h3 className="text-3xl font-bold text-orange-500 mt-2">
+            {stats?.pending_payments || 0}
+          </h3>
+        </div>
+
+        <div className="bg-white rounded-3xl p-6 shadow-sm border">
+          <p className="text-sm text-gray-500">Monto pendiente</p>
+          <h3 className="text-3xl font-bold text-red-500 mt-2">
+            ${stats?.pending_amount || 0}
+          </h3>
         </div>
       </div>
 
