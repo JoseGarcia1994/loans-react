@@ -11,6 +11,8 @@ function RegisterPage() {
 
   const [formData, setFormData] = useState({
     email: "",
+    first_name: "",
+    last_name: "",
     password: "",
   });
 
@@ -21,12 +23,15 @@ function RegisterPage() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+
+    setError("");
   };
 
   const registerUser = async (e) => {
     e.preventDefault();
 
     setError("");
+    setSuccess(false);
 
     try {
       setLoading(true);
@@ -36,18 +41,19 @@ function RegisterPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email: formData.email,
-          first_name: formData.first_name,
-          last_name: formData.last_name,
-          password: formData.password,
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
 
-        setError(errorData.detail);
+        const msg =
+          errorData.detail?.[0]?.msg ||
+          errorData.detail ||
+          "Error creating account";
+
+        // Remove "Value error,"
+        setError(msg.replace("Value error,", "").trim());
 
         return;
       }
