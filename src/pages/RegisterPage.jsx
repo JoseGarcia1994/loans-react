@@ -14,6 +14,7 @@ function RegisterPage() {
     first_name: "",
     last_name: "",
     password: "",
+    terms_accepted: false,
   });
 
   const [loading, setLoading] = useState(false);
@@ -32,6 +33,11 @@ function RegisterPage() {
 
     setError("");
     setSuccess(false);
+
+    if (!formData.terms_accepted) {
+      setError("You must accept terms and conditions");
+      return;
+    }
 
     try {
       setLoading(true);
@@ -119,10 +125,32 @@ function RegisterPage() {
             required
           />
 
+          <div className="flex items-start gap-2">
+            <input
+              type="checkbox"
+              name="terms_accepted"
+              checked={formData.terms_accepted}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  terms_accepted: e.target.checked,
+                })
+              }
+              className="mt-1"
+            />
+
+            <label className="text-sm text-gray-600">
+              Acepto los{" "}
+              <span className="text-blue-600 underline cursor-pointer">
+                términos y condiciones
+              </span>
+            </label>
+          </div>
+
           <button
             type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold"
+            disabled={loading || !formData.terms_accepted}
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white py-3 rounded-xl font-semibold"
           >
             {loading ? "Creando..." : "Crear Cuenta"}
           </button>
