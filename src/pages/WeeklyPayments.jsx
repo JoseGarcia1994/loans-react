@@ -12,7 +12,7 @@ function WeeklyPayments() {
 
   const [offset, setOffset] = useState(0);
 
-  const MIN_OFFSET = -10; // up to 10 weeks behind
+  const MIN_OFFSET = -18; // up to 18 weeks behind
   const MAX_OFFSET = 1; // up to next week
 
   const goPrevWeek = () => {
