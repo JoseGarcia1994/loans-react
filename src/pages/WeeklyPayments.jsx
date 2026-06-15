@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/Layout";
 import WeeklyHeader from "../components/WeeklyHeader";
 import WeekSelector from "../components/WeekSelector";
 import WeeklyPaymentCard from "../components/WeeklyPaymentCard";

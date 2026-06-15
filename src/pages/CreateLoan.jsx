@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/ui/Alert";
 import Input from "../components/ui/Input";
-import Layout from "../components/Layout";
 
 function CreateLoan() {
   const navigate = useNavigate();
