@@ -4,31 +4,11 @@ import { DashboardLayout } from "../components/dashboard/DashboardLayout";
 import { StatsCards } from "../components/dashboard/StatsCards";
 import { LoanCard } from "../components/dashboard/LoanCard";
 
-const decodeJwtName = () => {
-  try {
-    const token = localStorage.getItem("token");
-    if (!token) return "";
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    // Intenta los campos más comunes según el backend
-    return (
-      payload.first_name ||
-      payload.name ||
-      payload.full_name ||
-      payload.username ||
-      payload.sub ||
-      ""
-    );
-  } catch {
-    return "";
-  }
-};
-
 export default function DashboardPage() {
   const [loans, setLoans] = useState([]);
   const [stats, setStats] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [userName] = useState(() => decodeJwtName());
 
   useEffect(() => {
     const loadData = async () => {
@@ -90,7 +70,6 @@ export default function DashboardPage() {
       activePath="/dashboard"
       title="Préstamos"
       subtitle="Gestiona y monitorea tu cartera de clientes"
-      userName={userName}
     >
       {/* Toast */}
       {showSuccess && (

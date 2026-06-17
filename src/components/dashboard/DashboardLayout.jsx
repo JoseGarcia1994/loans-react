@@ -2,9 +2,27 @@ import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { DashboardNavbar } from "./DashboardNavbar";
 
-export function DashboardLayout({ children, activePath = "/dashboard", title = "Dashboard", subtitle = "", userName = "" }) {
+const decodeJwtName = () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) return "";
+
+    const payload = JSON.parse(atob(token.split(".")[1]));
+
+    const fullName =
+      `${payload.first_name ?? ""} ${payload.last_name ?? ""}`.trim();
+
+    return fullName || payload.sub || "";
+  } catch {
+    return "";
+  }
+};
+
+export function DashboardLayout({ children, activePath = "/dashboard", title = "Dashboard", subtitle = ""}) {
   const [collapsed, setCollapsed] = useState(false);
   const sidebarW = collapsed ? "100px" : "252px";
+  const userName = decodeJwtName();
   return (
     <>
       <style>{`
