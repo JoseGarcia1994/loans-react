@@ -100,7 +100,7 @@ export function LoanCard({ loan, fetchLoans, deleteLoan, editLoan, setShowSucces
         onMouseOver={(e) => { e.currentTarget.style.borderColor = "rgba(74,222,128,0.2)"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.3)"; }}
         onMouseOut={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.09)"; e.currentTarget.style.boxShadow = "none"; }}
       >
-        {/* Barra de progreso */}
+        {/* Progress Bar */}
         <div style={{ height: "2px", background: "rgba(255,255,255,0.06)" }}>
           <div style={{ height: "100%", width: `${progress}%`, background: progress === 100 ? "#4ade80" : "linear-gradient(90deg, #4ade80, #22d3ee)", transition: "width 0.4s ease" }} />
         </div>
@@ -110,10 +110,10 @@ export function LoanCard({ loan, fetchLoans, deleteLoan, editLoan, setShowSucces
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(74,222,128,0.1)", border: "1px solid rgba(74,222,128,0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#4ade80", fontWeight: 800, fontSize: "0.88rem", flexShrink: 0 }}>
-                {loan.name?.charAt(0).toUpperCase()}
+                {loan.client?.first_name?.charAt(0).toUpperCase()}
               </div>
               <div>
-                <h2 style={{ color: "white", fontSize: "0.95rem", fontWeight: 700, margin: 0 }}>{loan.name}</h2>
+                <h2 style={{ color: "white", fontSize: "0.95rem", fontWeight: 700, margin: 0 }}>{loan.client?.first_name} {loan.client?.last_name}</h2>
                 <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.75rem", margin: 0 }}>{loan.date}</p>
               </div>
             </div>
@@ -157,7 +157,7 @@ export function LoanCard({ loan, fetchLoans, deleteLoan, editLoan, setShowSucces
             ))}
           </div>
 
-          {/* Pips + botón */}
+          {/* Pips + button */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <PaymentPips payments={loan.payments} />
             <button
@@ -173,7 +173,7 @@ export function LoanCard({ loan, fetchLoans, deleteLoan, editLoan, setShowSucces
             </button>
           </div>
 
-          {/* Pagos expandidos */}
+          {/* Expanded Payments */}
           {open && <PaymentList payments={loan.payments ?? []} loan={loan} />}
         </div>
       </div>
