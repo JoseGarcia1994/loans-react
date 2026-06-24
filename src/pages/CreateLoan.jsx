@@ -19,7 +19,7 @@ export default function CreateLoan() {
 
   const [formData, setFormData] = useState({
     amount: "",
-    date: "",
+    start_date: "",
   });
 
   // =========================
@@ -118,14 +118,19 @@ export default function CreateLoan() {
         body: JSON.stringify({
           client_id: Number(clientId),
           amount: Number(formData.amount),
-          date: formData.date,
+          start_date: formData.start_date,
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.detail || "Error creando préstamo");
+        const message = Array.isArray(data.detail)
+          ? data.detail[0]?.msg
+          : data.detail;
+
+        setError(message || "Error creando préstamo");
+
         return;
       }
 
@@ -235,7 +240,8 @@ export default function CreateLoan() {
                       onClick={() => handleSelectClient(c)}
                       style={dropdownItem}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "rgba(74,222,128,0.1)";
+                        e.currentTarget.style.background =
+                          "rgba(74,222,128,0.1)";
                         e.currentTarget.style.borderLeftColor = "#4ade80";
                       }}
                       onMouseLeave={(e) => {
@@ -246,7 +252,12 @@ export default function CreateLoan() {
                       <span style={{ color: "white", fontWeight: 600 }}>
                         {c.first_name} {c.last_name}
                       </span>
-                      <span style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.82rem" }}>
+                      <span
+                        style={{
+                          color: "rgba(255,255,255,0.45)",
+                          fontSize: "0.82rem",
+                        }}
+                      >
                         {c.phone}
                       </span>
                     </div>
@@ -255,20 +266,22 @@ export default function CreateLoan() {
               )}
 
               {/* Sin resultados */}
-              {showDropdown && search.trim() && filteredClients.length === 0 && (
-                <div style={dropdownStyle}>
-                  <div
-                    style={{
-                      padding: "14px 16px",
-                      color: "rgba(255,255,255,0.4)",
-                      fontSize: "0.88rem",
-                      textAlign: "center",
-                    }}
-                  >
-                    Sin resultados para "{search}"
+              {showDropdown &&
+                search.trim() &&
+                filteredClients.length === 0 && (
+                  <div style={dropdownStyle}>
+                    <div
+                      style={{
+                        padding: "14px 16px",
+                        color: "rgba(255,255,255,0.4)",
+                        fontSize: "0.88rem",
+                        textAlign: "center",
+                      }}
+                    >
+                      Sin resultados para "{search}"
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
             </div>
 
             <button
@@ -299,8 +312,8 @@ export default function CreateLoan() {
             <label style={labelStyle}>Fecha *</label>
             <input
               type="date"
-              name="date"
-              value={formData.date}
+              name="start_date"
+              value={formData.start_date}
               onChange={handleChange}
               required
               style={inputStyle}
