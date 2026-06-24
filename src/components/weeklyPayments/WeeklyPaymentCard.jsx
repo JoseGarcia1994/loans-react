@@ -9,7 +9,7 @@ export function WeeklyPaymentCard({ payment, markAsPaid }) {
       borderRadius: "14px",
       overflow: "hidden",
     }}>
-      {/* Barra de estado */}
+      {/* Status Bar */}
       <div style={{ height: "2px", background: payment.paid ? "#4ade80" : "rgba(255,255,255,0.06)" }} />
 
       <div style={{ padding: "14px 16px" }}>
@@ -24,11 +24,11 @@ export function WeeklyPaymentCard({ payment, markAsPaid }) {
               color: payment.paid ? "#4ade80" : "rgba(255,255,255,0.5)",
               fontWeight: 800, fontSize: "0.82rem",
             }}>
-              {payment.loan_name?.charAt(0).toUpperCase() ?? "?"}
+              {payment.client_name?.charAt(0).toUpperCase() ?? "?"}
             </div>
             <div>
               <p style={{ color: "white", fontSize: "0.9rem", fontWeight: 700, margin: 0 }}>
-                {payment.loan_name}
+                {payment.client_name}
               </p>
               <p style={{ color: "#38bdf8", fontSize: "0.72rem", fontWeight: 600, margin: 0 }}>
                 Pago #{payment.payment_number}
@@ -36,7 +36,7 @@ export function WeeklyPaymentCard({ payment, markAsPaid }) {
             </div>
           </div>
 
-          {/* Badge estado */}
+          {/* Badge Status */}
           {payment.paid ? (
             <span style={{
               background: "rgba(74,222,128,0.1)", border: "1px solid rgba(74,222,128,0.2)",
@@ -56,7 +56,7 @@ export function WeeklyPaymentCard({ payment, markAsPaid }) {
           )}
         </div>
 
-        {/* Info + acción */}
+        {/* Info + Action */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px" }}>
           <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
             <span style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.78rem" }}>
