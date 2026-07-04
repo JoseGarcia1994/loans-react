@@ -59,6 +59,22 @@ export default function WeeklyPaymentsPage() {
     }
   };
 
+  const liquidateLoan = async (loanId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://127.0.0.1:8000/payments/loan/${loanId}/liquidate`,
+        { method: "PATCH", headers: { Authorization: `Bearer ${token}` } },
+      );
+      if (!response.ok) throw new Error("Error liquidating loan");
+      fetchWeeklyPayments(offset);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const shownLiquidateMobile = new Set();
+
   return (
     <DashboardLayout
       activePath="/weekly-payments"
@@ -158,18 +174,27 @@ export default function WeeklyPaymentsPage() {
                 <WeeklyPaymentsTable
                   payments={payments}
                   markAsPaid={markAsPaid}
+                  liquidateLoan={liquidateLoan}
                 />
               </div>
 
               {/* Mobile — cards */}
               <div className="weekly-cards">
-                {payments.map((payment) => (
-                  <WeeklyPaymentCard
-                    key={payment.payment_id}
-                    payment={payment}
-                    markAsPaid={markAsPaid}
-                  />
-                ))}
+                {payments.map((payment) => {
+                  const showLiquidate =
+                    !payment.paid && !shownLiquidateMobile.has(payment.loan_id);
+                  if (!payment.paid) shownLiquidateMobile.add(payment.loan_id);
+
+                  return (
+                    <WeeklyPaymentCard
+                      key={payment.payment_id}
+                      payment={payment}
+                      markAsPaid={markAsPaid}
+                      liquidateLoan={liquidateLoan}
+                      showLiquidate={showLiquidate}
+                    />
+                  );
+                })}
               </div>
             </>
           )}

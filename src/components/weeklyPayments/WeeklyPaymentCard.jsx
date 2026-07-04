@@ -1,7 +1,7 @@
 const formatCurrency = (amount) =>
   Number(amount).toLocaleString("es-MX", { style: "currency", currency: "MXN" });
 
-export function WeeklyPaymentCard({ payment, markAsPaid }) {
+export function WeeklyPaymentCard({ payment, markAsPaid, liquidateLoan, showLiquidate }) {
   return (
     <div style={{
       background: payment.paid ? "rgba(74,222,128,0.05)" : "rgba(255,255,255,0.05)",
@@ -36,53 +36,50 @@ export function WeeklyPaymentCard({ payment, markAsPaid }) {
             </div>
           </div>
 
-          {/* Badge Status */}
           {payment.paid ? (
             <span style={{
               background: "rgba(74,222,128,0.1)", border: "1px solid rgba(74,222,128,0.2)",
               color: "#4ade80", fontSize: "0.7rem", fontWeight: 700,
               padding: "3px 9px", borderRadius: "100px",
-            }}>
-              ✓ Pagado
-            </span>
+            }}>✓ Pagado</span>
           ) : (
             <span style={{
               background: "rgba(251,146,60,0.08)", border: "1px solid rgba(251,146,60,0.2)",
               color: "#fb923c", fontSize: "0.7rem", fontWeight: 700,
               padding: "3px 9px", borderRadius: "100px",
-            }}>
-              Pendiente
-            </span>
+            }}>Pendiente</span>
           )}
         </div>
 
-        {/* Info + Action */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px" }}>
-          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-            <span style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.78rem" }}>
-              <span style={{ color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>Fecha:</span>{" "}
-              {payment.payment_date}
-            </span>
-            <span style={{ color: payment.paid ? "#4ade80" : "rgba(255,255,255,0.75)", fontSize: "0.88rem", fontWeight: 700 }}>
-              {formatCurrency(payment.payment_amount)}
-            </span>
-          </div>
+        {/* Info */}
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "12px" }}>
+          <span style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.78rem" }}>
+            <span style={{ color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>Fecha:</span>{" "}
+            {payment.payment_date}
+          </span>
+          <span style={{ color: payment.paid ? "#4ade80" : "rgba(255,255,255,0.75)", fontSize: "0.88rem", fontWeight: 700 }}>
+            {formatCurrency(payment.payment_amount)}
+          </span>
+        </div>
 
-          {payment.paid ? (
-            <div style={{
-              background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.15)",
-              borderRadius: "8px", padding: "6px 14px",
-              color: "#4ade80", fontSize: "0.78rem", fontWeight: 700,
-            }}>
-              ✓ Cobrado
-            </div>
-          ) : (
+        {/* Actions */}
+        {payment.paid ? (
+          <div style={{
+            background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.15)",
+            borderRadius: "8px", padding: "6px 14px", textAlign: "center",
+            color: "#4ade80", fontSize: "0.78rem", fontWeight: 700,
+          }}>
+            ✓ Cobrado
+          </div>
+        ) : (
+          <div style={{ display: "flex", gap: "8px" }}>
             <button
               onClick={() => markAsPaid(payment.payment_id)}
               style={{
+                flex: 1,
                 background: "linear-gradient(135deg, #4ade80, #22d3ee)",
                 border: "none", borderRadius: "8px",
-                padding: "7px 16px", cursor: "pointer",
+                padding: "8px 0", cursor: "pointer",
                 color: "#052e16", fontSize: "0.78rem", fontWeight: 700,
                 boxShadow: "0 4px 12px rgba(74,222,128,0.2)",
                 transition: "opacity 0.15s",
@@ -92,8 +89,33 @@ export function WeeklyPaymentCard({ payment, markAsPaid }) {
             >
               Cobrar
             </button>
-          )}
-        </div>
+
+            {showLiquidate && (
+              <button
+                onClick={() => liquidateLoan(payment.loan_id)}
+                style={{
+                  flex: 1,
+                  background: "rgba(251,146,60,0.12)",
+                  border: "1px solid rgba(251,146,60,0.3)",
+                  borderRadius: "8px", padding: "8px 0",
+                  cursor: "pointer", color: "#fb923c",
+                  fontSize: "0.78rem", fontWeight: 700,
+                  transition: "all 0.15s",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = "rgba(251,146,60,0.2)";
+                  e.currentTarget.style.borderColor = "rgba(251,146,60,0.5)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = "rgba(251,146,60,0.12)";
+                  e.currentTarget.style.borderColor = "rgba(251,146,60,0.3)";
+                }}
+              >
+                Liquidar
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
