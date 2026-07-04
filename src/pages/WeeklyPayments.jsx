@@ -6,7 +6,7 @@ import { WeeklyPaymentsTable } from "../components/weeklyPayments/WeeklyPayments
 import { WeeklyPaymentCard } from "../components/weeklyPayments/WeeklyPaymentCard";
 
 const MIN_OFFSET = -18;
-const MAX_OFFSET = 1;
+const MAX_OFFSET = 14;
 
 export default function WeeklyPaymentsPage() {
   const [payments, setPayments] = useState([]);
