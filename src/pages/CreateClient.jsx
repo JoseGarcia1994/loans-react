@@ -179,14 +179,13 @@ export default function ClientsPage() {
           {/* Phone */}
           <div>
             <label style={labelStyle}>
-              Teléfono <span style={requiredStyle}>*</span>
+              Teléfono
             </label>
             <input
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              required
-              placeholder="3312345678"
+              placeholder="Opcional"
               style={inputStyle}
             />
           </div>
