@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
@@ -109,6 +110,19 @@ export function LoginForm() {
             >
               {showPassword ? "Ocultar" : "Ver"}
             </button>
+          </div>
+          <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "9px" }}>
+            <Link
+              to="/forgot-password"
+              style={{
+                color: "#4ade80",
+                fontSize: "0.78rem",
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
+            >
+              ¿Olvidaste tu contraseña?
+            </Link>
           </div>
         </div>
 
