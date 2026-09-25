@@ -81,7 +81,7 @@ const navItems = [
   },
   {
     href: "/create-client",
-    label: "Crear Cliente",
+    label: "Nuevo Cliente",
     icon: (
       <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
         <circle cx="9" cy="6" r="3" stroke="currentColor" strokeWidth="1.6" />
@@ -104,7 +104,7 @@ const navItems = [
   },
   {
     href: "/create-loan",
-    label: "Crear Préstamo",
+    label: "Nuevo Préstamo",
     icon: (
       <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
         <circle cx="9" cy="9" r="7.5" stroke="currentColor" strokeWidth="1.6" />
@@ -133,6 +133,45 @@ const navItems = [
         />
         <path
           d="M5.25 1.5v3M12.75 1.5v3M1.5 7.5h15"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    href: "/profile",
+    label: "Mi perfil",
+    icon: (
+      <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+        <circle cx="9" cy="6" r="3" stroke="currentColor" strokeWidth="1.6" />
+        <path
+          d="M3.5 15c.8-2.4 3-3.75 5.5-3.75S13.7 12.6 14.5 15"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    href: "/access-preferences",
+    label: "Preferencias de ingreso",
+    nested: true,
+    icon: (
+      <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+        <rect
+          x="3"
+          y="8"
+          width="12"
+          height="8"
+          rx="2"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+        <path
+          d="M6 8V5.75a3 3 0 0 1 6 0V8M9 11v2"
           stroke="currentColor"
           strokeWidth="1.6"
           strokeLinecap="round"
@@ -207,6 +246,10 @@ export function Sidebar({
           border-color: rgba(74,222,128,0.2);
           color: #4ade80;
           box-shadow: 0 0 12px rgba(74,222,128,0.08);
+        }
+        .sb-nav-item.nested {
+          margin-left: ${collapsed ? "0" : "18px"};
+          font-size: 0.78rem;
         }
         @media (max-width: 768px) { .sidebar-float { display: none; } }
       `}</style>
@@ -305,7 +348,7 @@ export function Sidebar({
               to={item.href}
               className={`sb-nav-item ${
                 activePath === item.href ? "active" : ""
-              }`}
+              } ${item.nested ? "nested" : ""}`}
               title={collapsed ? item.label : ""}
             >
               <span style={{ flexShrink: 0 }}>{item.icon}</span>
