@@ -98,61 +98,6 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* Botón cobranza semanal */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          marginBottom: "24px",
-        }}
-      >
-        <Link
-          to="/weekly-payments"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            background: "rgba(255,255,255,0.06)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            backdropFilter: "blur(12px)",
-            color: "rgba(255,255,255,0.75)",
-            padding: "9px 18px",
-            borderRadius: "10px",
-            fontWeight: 600,
-            fontSize: "0.88rem",
-            textDecoration: "none",
-            transition: "background 0.15s, border-color 0.15s",
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.background = "rgba(255,255,255,0.1)";
-            e.currentTarget.style.borderColor = "rgba(255,255,255,0.16)";
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-            e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-          }}
-        >
-          <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-            <rect
-              x="1.5"
-              y="3"
-              width="15"
-              height="13.5"
-              rx="2"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M5.25 1.5v3M12.75 1.5v3M1.5 7.5h15"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-          Cobranza Semanal
-        </Link>
-      </div>
-
       {/* Stats */}
       <StatsCards stats={stats} />
 

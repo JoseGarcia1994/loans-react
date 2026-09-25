@@ -47,7 +47,41 @@ const navItems = [
   },
   {
     href: "/clients",
-    label: "Nuevo Cliente",
+    label: "Clientes",
+    icon: (
+      <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+        {/* Persona 1 */}
+        <circle cx="6" cy="7" r="2.2" stroke="currentColor" strokeWidth="1.6" />
+
+        {/* Persona 2 */}
+        <circle
+          cx="12"
+          cy="7"
+          r="2.2"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+
+        {/* Cuerpos */}
+        <path
+          d="M2.5 14c.5-2 2.2-3.2 4.2-3.2s3.7 1.2 4.2 3.2"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+
+        <path
+          d="M7.3 14c.5-2 2.2-3.2 4.2-3.2s3.7 1.2 4.2 3.2"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    href: "/create-client",
+    label: "Crear Cliente",
     icon: (
       <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
         <circle cx="9" cy="6" r="3" stroke="currentColor" strokeWidth="1.6" />
@@ -70,7 +104,7 @@ const navItems = [
   },
   {
     href: "/create-loan",
-    label: "Nuevo Préstamo",
+    label: "Crear Préstamo",
     icon: (
       <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
         <circle cx="9" cy="9" r="7.5" stroke="currentColor" strokeWidth="1.6" />

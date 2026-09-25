@@ -46,26 +46,6 @@ export function DashboardNavbar({ title = "Dashboard", subtitle = "", userName =
       {/* Derecha */}
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
 
-        {/* Botón nuevo préstamo */}
-        <a
-          href="/create-loan"
-          style={{
-            display: "inline-flex", alignItems: "center", gap: "6px",
-            background: "linear-gradient(135deg, #4ade80, #22d3ee)",
-            color: "#052e16", padding: "7px 14px", borderRadius: "9px",
-            fontWeight: 700, fontSize: "0.82rem", textDecoration: "none",
-            boxShadow: "0 4px 16px rgba(74,222,128,0.28)",
-            transition: "opacity 0.15s",
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.opacity = "0.88")}
-          onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-          </svg>
-          Nuevo préstamo
-        </a>
-
         {/* Divisor */}
         <div style={{ width: "1px", height: "28px", background: "rgba(255,255,255,0.08)" }} />
 
