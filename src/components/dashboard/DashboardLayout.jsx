@@ -1,31 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { DashboardNavbar } from "./DashboardNavbar";
-
-const useCurrentUser = () => {
-  const [userName, setUserName] = useState("");
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
-    fetch("http://localhost:8000/user/", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((r) => r.json())
-      .then((data) =>
-        setUserName(`${data.first_name ?? ""} ${data.last_name ?? ""}`.trim())
-      )
-      .catch(() => setUserName(""));
-  }, []);
-
-  return userName;
-}
+import { useCurrentUser } from "../../hooks/useCurrentUser";
 
 export function DashboardLayout({ children, activePath = "/dashboard", title = "Dashboard", subtitle = ""}) {
   const [collapsed, setCollapsed] = useState(false);
   const sidebarW = collapsed ? "100px" : "252px";
-  const userName = useCurrentUser();
+  const { user } = useCurrentUser();
+  const userName = user ? `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim() : "";
   return (
     <>
       <style>{`
