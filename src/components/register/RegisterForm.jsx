@@ -93,7 +93,7 @@ export function RegisterForm() {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://127.0.0.1:8000/user",
+        `${import.meta.env.VITE_API_URL}/user`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

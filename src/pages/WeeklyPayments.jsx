@@ -31,7 +31,7 @@ export default function WeeklyPaymentsPage() {
       setLoading(true);
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://127.0.0.1:8000/payments/week?offset=${weekOffset}`,
+        `${import.meta.env.VITE_API_URL}/payments/week?offset=${weekOffset}`,
         { headers: { Authorization: `Bearer ${token}` } },
       );
       if (!response.ok) throw new Error("Error fetching weekly payments");
@@ -49,7 +49,7 @@ export default function WeeklyPaymentsPage() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://127.0.0.1:8000/payments/${paymentId}/pay`,
+        `${import.meta.env.VITE_API_URL}/payments/${paymentId}/pay`,
         { method: "PATCH", headers: { Authorization: `Bearer ${token}` } },
       );
       if (!response.ok) throw new Error("Error updating payment");
@@ -63,7 +63,7 @@ export default function WeeklyPaymentsPage() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://127.0.0.1:8000/payments/loan/${loanId}/liquidate`,
+        `${import.meta.env.VITE_API_URL}/payments/loan/${loanId}/liquidate`,
         { method: "PATCH", headers: { Authorization: `Bearer ${token}` } },
       );
       if (!response.ok) throw new Error("Error liquidating loan");

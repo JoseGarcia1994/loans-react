@@ -8,7 +8,7 @@ export function useCurrentUser() {
     const token = localStorage.getItem("token");
     if (!token) { setLoading(false); return; }
 
-    fetch("http://127.0.0.1:8000/user/", {
+    fetch(`${import.meta.env.VITE_API_URL}/user/`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => (r.ok ? r.json() : null))

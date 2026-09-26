@@ -17,7 +17,7 @@ export default function ChangeEmail() {
       return;
     }
 
-    fetch("http://127.0.0.1:8000/user/me", {
+    fetch(`${import.meta.env.VITE_API_URL}/user/me`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => (response.ok ? response.json() : null))
@@ -48,7 +48,7 @@ export default function ChangeEmail() {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:8000/user/email", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/email`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

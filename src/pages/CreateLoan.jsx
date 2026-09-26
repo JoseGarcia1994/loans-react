@@ -30,7 +30,7 @@ export default function CreateLoan() {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://127.0.0.1:8000/client", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/client`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -109,7 +109,7 @@ export default function CreateLoan() {
 
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://127.0.0.1:8000/loans/", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/loans/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -30,7 +30,7 @@ export default function ChangePassword() {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://127.0.0.1:8000/user/password", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/user/password`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ password: form.currentPassword, new_password: form.newPassword }),

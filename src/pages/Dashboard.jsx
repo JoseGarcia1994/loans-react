@@ -25,7 +25,7 @@ export default function DashboardPage() {
   const fetchLoans = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:8000/loans", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/loans`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -38,7 +38,7 @@ export default function DashboardPage() {
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:8000/loans/stats", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/loans/stats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -50,7 +50,7 @@ export default function DashboardPage() {
 
   const deleteLoan = async (loanId) => {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://127.0.0.1:8000/loans/${loanId}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/loans/${loanId}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });

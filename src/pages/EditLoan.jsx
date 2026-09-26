@@ -86,7 +86,7 @@ function EditLoan() {
   const fetchLoan = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://127.0.0.1:8000/loans/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/loans/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -104,7 +104,7 @@ function EditLoan() {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://127.0.0.1:8000/loans/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/loans/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

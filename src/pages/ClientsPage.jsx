@@ -20,7 +20,7 @@ export default function ClientsPage() {
   const fetchClients = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://127.0.0.1:8000/client/", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/client/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -36,7 +36,7 @@ export default function ClientsPage() {
     try {
       setLoadingDelete(true);
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://127.0.0.1:8000/client/${deleteTarget.id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/client/${deleteTarget.id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
