@@ -14,6 +14,7 @@ import ChangeEmail from "./pages/ChangeEmail";
 import AccessPreferences from "./pages/AccessPreferences";
 import CreateClient from "./pages/CreateClient";
 import ClientsPage from "./pages/ClientsPage";
+import EditClient from "./pages/EditClient";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/weekly-payments" element={<WeeklyPayments />} />
         <Route path="/create-client" element={<CreateClient />} />
         <Route path="/clients" element={<ClientsPage />} />
+        <Route path="/clients/edit/:id" element={<EditClient />} />
 
       </Routes>
     </BrowserRouter>
