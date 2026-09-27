@@ -56,7 +56,7 @@ export default function AccessPreferences() {
     const payload = decodeJwt(token);
     setEmail(payload?.sub ?? payload?.email ?? "");
 
-    fetch(`${import.meta.env.VITE_API_URL}/user/me`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => (response.ok ? response.json() : null))
