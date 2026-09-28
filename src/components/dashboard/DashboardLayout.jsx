@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Sidebar} from "./Sidebar";
 import { DashboardNavbar } from "./DashboardNavbar";
+import { navItems } from "../../utils/navConfig";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 
 export function DashboardLayout({ children, activePath = "/dashboard", title = "Dashboard", subtitle = ""}) {
