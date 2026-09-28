@@ -5,9 +5,16 @@ import { useCurrentUser } from "../../hooks/useCurrentUser";
 
 export function DashboardLayout({ children, activePath = "/dashboard", title = "Dashboard", subtitle = ""}) {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const sidebarW = collapsed ? "100px" : "252px";
   const { user } = useCurrentUser();
   const userName = user ? `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim() : "";
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+
   return (
     <>
       <style>{`
@@ -55,12 +62,54 @@ export function DashboardLayout({ children, activePath = "/dashboard", title = "
           font-size: 0.6rem; font-weight: 600;
           text-decoration: none; padding: 0 14px;
           transition: color 0.15s;
+          background: none;
+          border: none;
+          cursor: pointer;
         }
         .mob-item.active { color: #4ade80; }
+
+        /* Panel de menú móvil */
+        .mobile-menu-overlay {
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.5);
+          z-index: 60;
+        }
+        .mobile-menu-sheet {
+          position: fixed;
+          left: 0; right: 0; bottom: 0;
+          background: rgba(15,32,39,0.98);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border-top: 1px solid rgba(255,255,255,0.1);
+          border-radius: 20px 20px 0 0;
+          padding: 16px 12px calc(env(safe-area-inset-bottom, 0px) + 16px);
+          z-index: 61;
+          max-height: 70vh;
+          overflow-y: auto;
+        }
+        .mobile-menu-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 14px;
+          border-radius: 12px;
+          text-decoration: none;
+          color: rgba(255,255,255,0.7);
+          font-size: 0.9rem;
+          font-weight: 500;
+        }
+        .mobile-menu-item.active {
+          background: rgba(74,222,128,0.12);
+          color: #4ade80;
+        }
+
         @media (max-width: 768px) {
           .dash-main { margin-left: 0 !important; }
           .mobile-bottom-nav { display: flex; }
           .dash-content { padding: 20px 16px 80px; }
+          .mobile-menu-overlay.open { display: block; }
         }
       `}</style>
 
@@ -72,10 +121,10 @@ export function DashboardLayout({ children, activePath = "/dashboard", title = "
           <div style={{ position: "absolute", bottom: "5%", left: "38%", width: "360px", height: "360px", borderRadius: "50%", background: "radial-gradient(circle, rgba(99,102,241,0.09) 0%, transparent 65%)" }} />
         </div>
 
-        {/* Sidebar flotante */}
+        {/* Sidebar flotante (desktop/tablet) */}
         <Sidebar activePath={activePath} collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
 
-        {/* Contenido principal — margin-left reactivo al estado del sidebar */}
+        {/* Contenido principal */}
         <div className="dash-main" style={{ marginLeft: sidebarW }}>
           <DashboardNavbar title={title} subtitle={subtitle} userName={userName} />
           <div className="dash-content">
@@ -96,7 +145,45 @@ export function DashboardLayout({ children, activePath = "/dashboard", title = "
             {item.label}
           </a>
         ))}
+        <button
+          className="mob-item"
+          onClick={() => setMobileMenuOpen(true)}
+        >
+          <svg width="19" height="19" viewBox="0 0 18 18" fill="none">
+            <path d="M2.5 5h13M2.5 9h13M2.5 13h13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+          Menú
+        </button>
       </nav>
+
+      {/* Panel con todas las opciones */}
+      {mobileMenuOpen && (
+        <>
+          <div className="mobile-menu-overlay open" onClick={() => setMobileMenuOpen(false)} />
+          <div className="mobile-menu-sheet">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`mobile-menu-item ${activePath === item.href ? "active" : ""}`}
+              >
+                <span style={{ flexShrink: 0 }}>{item.icon}</span>
+                {item.label}
+              </a>
+            ))}
+            <button
+              onClick={handleLogout}
+              className="mobile-menu-item"
+              style={{ width: "100%", background: "none", border: "none", textAlign: "left", cursor: "pointer" }}
+            >
+              <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+                <path d="M6.75 15.75H3.75a1.5 1.5 0 0 1-1.5-1.5V3.75a1.5 1.5 0 0 1 1.5-1.5h3M12 12.75 15.75 9 12 5.25M15.75 9H6.75" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Cerrar sesión
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
 }
